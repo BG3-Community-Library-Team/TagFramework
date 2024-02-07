@@ -1,19 +1,24 @@
 local configFilePathPattern = string.gsub("Mods/%s/ScriptExtender/TagFrameworkConfig.json", "'", "\'")
 
+local function translateSingleTag(tag)
+  local res = tag
+  if not CLUtils.IsGuid(string.sub(tag, -36)) then
+    tag = Globals.TagDict[tag] or tag
+    local fleshedTag = Ext.StaticData.Get(string.sub(tag, -36), "Tag")
+
+    local res = fleshedTag.Name .. "_" .. fleshedTag.ResourceUUID
+  end
+
+  return res
+end
+
 local function payloadTagTranslator(fromArr)
   if fromArr then
     local res = {}
 
     for _, tag in pairs(fromArr) do
-      if not CLUtils.IsGuid(tag) then
-        tag = Globals.TagDict[tag] or tag
-        if tag then
-          local fleshedTag = Ext.StaticData.Get(string.sub(tag, -36), "Tag")
-
-          local tagName = fleshedTag.Name .. "_" .. fleshedTag.ResourceUUID
-          CLUtils.AddToTable(res, tagName)
-        end
-      end
+      local tagName = translateSingleTag(tag)
+      CLUtils.AddToTable(res, tagName)
     end
 
     return res
@@ -30,20 +35,30 @@ local function payloadDataInsert(tagData, payload, modGUID, count)
   if payload[objName] then
     payloadDataInsert(tagData, payload, modGUID, count + 1)
   else
+    local tag = translateSingleTag(tagData.Tag)
+    local reallyTag = translateSingleTag(tagData.ReallyTag)
+
     payload[objName] = {
       modGuids = tagData.modGuids or { modGUID },
-      ReallyTag = tagData.ReallyTag,
+      Type = tagData.Type,
+      Tag = tag,
+      ReallyTag = reallyTag,
       TagsToExclude = {},
-      RaceMetaTags = tagData.RaceMetaTags or {}
+      RaceMetaTags = {},
+      DeityClassAlignTags = {}
     }
     if tagData.TagsToExclude then
       payload[objName].TagsToExclude = payloadTagTranslator(tagData.TagsToExclude)
     end
-    
+
     if tagData.RaceMetaTags then
       payload[objName].RaceMetaTags = payloadTagTranslator(tagData.RaceMetaTags)
     end
-    
+
+    if tagData.DeityClassAlignTags then
+      payload[objName].DeityClassAlignTags = payloadTagTranslator(tagData.DeityClassAlignTags)
+    end
+
     return payload
   end
 end
