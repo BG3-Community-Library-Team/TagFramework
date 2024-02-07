@@ -6,7 +6,7 @@ local function translateSingleTag(tag)
     tag = Globals.TagDict[tag] or tag
     local fleshedTag = Ext.StaticData.Get(string.sub(tag, -36), "Tag")
 
-    local res = fleshedTag.Name .. "_" .. fleshedTag.ResourceUUID
+    res = fleshedTag.Name .. "_" .. fleshedTag.ResourceUUID
   end
 
   return res

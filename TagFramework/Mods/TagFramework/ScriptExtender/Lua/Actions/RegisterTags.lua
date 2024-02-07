@@ -7,14 +7,18 @@ end
 function Actions.RegisterTags(tagNameId, tagData)
   if not Globals.TagGroups[tagNameId] then
     Globals.TagGroups[tagNameId] = {
+      Type = tagData.Type,
+      Tag = tagData.Tag,
       ReallyTag = tagData.ReallyTag,
       TagsToExclude = {},
-      RaceMetaTags = {}
+      RaceMetaTags = {},
+      DeityClassAlignTags = {}
     }
   end
 
   Globals.TagGroups[tagNameId].ReallyTag = tagData.ReallyTag
 
-  AddToTagGroupsSubTable("TagsToExclude", tagNameId, tagData)
-  AddToTagGroupsSubTable("RaceMetaTags", tagNameId, tagData)
+  AddToTagGroupsSubTable("TagsToExclude", tagData.Tag, tagData)
+  AddToTagGroupsSubTable("RaceMetaTags", tagData.Tag, tagData)
+  AddToTagGroupsSubTable("DeityClassAlignTags", tagData.Tag, tagData)
 end
