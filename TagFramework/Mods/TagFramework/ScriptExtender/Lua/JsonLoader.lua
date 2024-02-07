@@ -1,8 +1,8 @@
 local configFilePathPattern = string.gsub("Mods/%s/ScriptExtender/TagFrameworkConfig.json", "'", "\'")
 
 local function translateSingleTag(tag)
-  local res = tag
-  if not CLUtils.IsGuid(string.sub(tag, -36)) then
+  local res = tag or nil
+  if tag and not CLUtils.IsGuid(string.sub(tag, -36)) then
     tag = Globals.TagDict[tag] or tag
     local fleshedTag = Ext.StaticData.Get(string.sub(tag, -36), "Tag")
 
@@ -35,7 +35,6 @@ local function payloadDataInsert(tagData, payload, modGUID, count)
   if payload[objName] then
     payloadDataInsert(tagData, payload, modGUID, count + 1)
   else
-
     payload[objName] = {
       modGuids = tagData.modGuids or { modGUID },
       Type = tagData.Type,
