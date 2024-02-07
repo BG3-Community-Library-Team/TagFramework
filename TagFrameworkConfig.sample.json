@@ -1,0 +1,12 @@
+{
+  "FileVersion": 1,
+  "Tags": [
+    {
+      "modGuids": ["bfc31d95-8fd5-4bdc-a92b-ec3bfce13f86"],
+      "Tag": "Ghouls_Dunmer_f34cadf5-ccfb-4e56-9596-356619569108",
+      "ReallyTag": "REALLY_Ghouls_Dunmer_6a018dee-2f04-4bda-93c4-958422c3ed0a",
+      "TagsToExclude": ["Baldurian"],
+      "RaceMetaTags": [""]
+    }
+  ]
+}
