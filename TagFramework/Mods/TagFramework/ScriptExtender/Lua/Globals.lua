@@ -136,6 +136,7 @@ Globals.TagDict = {
   Criminal = "CRIMINAL_74ed9de3-fff5-419a-949b-18bd5e17944e",
   Entertainer = "ENTERTAINER_bd3cfefd-5fe2-47ea-bd3c-e99eaad9b714",
   FolkHero = "FOLKHERO_9c38904c-4aed-4d22-9038-fc7d103aaed5",
+  HauntedOne = "ce00b3b6-238e-4524-851b-3d1f2d2b1189",
   Hermit = "HERMIT_2fa3f042-2b50-41b2-8045-39ddd4421ca9",
   Noble = "NOBLE_56825486-9cfc-4ec2-87d1-c8065c41774b",
   Outlander = "OUTLANDER_d81df6f9-9f6e-4146-841a-9f285e6ee879",
@@ -259,6 +260,6 @@ Globals.TagDict = {
 
 -- Prevent DBOperationLoop from proceeding if DB won't work right with specific types
 Globals.TypeBlacklist = {
-  DB_RaceTags = { "Background", "Cleric" },
-  DB_RaceMetaTags = { "Background", "Cleric" }
+  DB_RaceTags = { "Background", "Deity" },
+  DB_RaceMetaTags = { "Background", "Deity" }
 }

@@ -1,6 +1,9 @@
 local function AddToTagGroupsSubTable(fieldString, tagNameId, tagData)
-  for _, tag in pairs(tagData[fieldString]) do
-    CLUtils.AddToTable(Globals.TagGroups[tagNameId][fieldString], tag)
+  if tagData[fieldString] then
+    for _, tag in pairs(tagData[fieldString]) do
+      _D(Globals.TagGroups[tagNameId])
+      CLUtils.AddToTable(Globals.TagGroups[tagNameId][fieldString], tag)
+    end
   end
 end
 
@@ -20,6 +23,6 @@ function Actions.RegisterTags(tagNameId, tagData)
 
   Globals.TagGroups[tagNameId].ReallyTag = tagData.ReallyTag
 
-  AddToTagGroupsSubTable("TagsToExclude", tagData.Tag, tagData)
-  AddToTagGroupsSubTable("RaceMetaTags", tagData.Tag, tagData)
+  AddToTagGroupsSubTable("TagsToExclude", tagNameId, tagData)
+  AddToTagGroupsSubTable("RaceMetaTags", tagNameId, tagData)
 end

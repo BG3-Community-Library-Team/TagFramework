@@ -26,7 +26,7 @@ local function payloadTagTranslator(fromArr)
 end
 
 local function payloadDataInsert(tagData, payload, modGUID, count)
-  local objName = tagData.Tag
+  local objName = translateSingleTag(tagData.Tag)
 
   if count > 0 then
     objName = objName .. "_" .. count
@@ -38,7 +38,7 @@ local function payloadDataInsert(tagData, payload, modGUID, count)
     payload[objName] = {
       modGuids = tagData.modGuids or { modGUID },
       Type = tagData.Type,
-      Tag = translateSingleTag(tagData.Tag),
+      Tag = objName,
       ReallyTag = translateSingleTag(tagData.ReallyTag),
       DeityCleric = translateSingleTag(tagData.DeityCleric),
       DeityPaladin = translateSingleTag(tagData.DeityPaladin),
