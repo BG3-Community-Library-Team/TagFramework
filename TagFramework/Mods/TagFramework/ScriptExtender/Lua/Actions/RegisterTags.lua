@@ -14,7 +14,7 @@ function Actions.RegisterTags(tagNameId, tagData)
       DeityPaladin = tagData.DeityPaladin,
       DeityAlignment = tagData.DeityAlignment,
       TagsToExclude = {},
-      RaceMetaTags = {},
+      RaceMetaTags = {}
     }
   end
 
