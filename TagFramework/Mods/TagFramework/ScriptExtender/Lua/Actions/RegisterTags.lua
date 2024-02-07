@@ -10,9 +10,11 @@ function Actions.RegisterTags(tagNameId, tagData)
       Type = tagData.Type,
       Tag = tagData.Tag,
       ReallyTag = tagData.ReallyTag,
+      DeityCleric = tagData.DeityCleric,
+      DeityPaladin = tagData.DeityPaladin,
+      DeityAlignment = tagData.DeityAlignment,
       TagsToExclude = {},
       RaceMetaTags = {},
-      DeityClassAlignTags = {}
     }
   end
 
@@ -20,5 +22,4 @@ function Actions.RegisterTags(tagNameId, tagData)
 
   AddToTagGroupsSubTable("TagsToExclude", tagData.Tag, tagData)
   AddToTagGroupsSubTable("RaceMetaTags", tagData.Tag, tagData)
-  AddToTagGroupsSubTable("DeityClassAlignTags", tagData.Tag, tagData)
 end

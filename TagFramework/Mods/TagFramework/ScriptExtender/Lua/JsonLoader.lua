@@ -35,17 +35,17 @@ local function payloadDataInsert(tagData, payload, modGUID, count)
   if payload[objName] then
     payloadDataInsert(tagData, payload, modGUID, count + 1)
   else
-    local tag = translateSingleTag(tagData.Tag)
-    local reallyTag = translateSingleTag(tagData.ReallyTag)
 
     payload[objName] = {
       modGuids = tagData.modGuids or { modGUID },
       Type = tagData.Type,
-      Tag = tag,
-      ReallyTag = reallyTag,
+      Tag = translateSingleTag(tagData.Tag),
+      ReallyTag = translateSingleTag(tagData.ReallyTag),
+      DeityCleric = translateSingleTag(tagData.DeityCleric),
+      DeityPaladin = translateSingleTag(tagData.DeityPaladin),
+      DeityAlignment = translateSingleTag(tagData.DeityAlignment),
       TagsToExclude = {},
       RaceMetaTags = {},
-      DeityClassAlignTags = {}
     }
     if tagData.TagsToExclude then
       payload[objName].TagsToExclude = payloadTagTranslator(tagData.TagsToExclude)
@@ -53,10 +53,6 @@ local function payloadDataInsert(tagData, payload, modGUID, count)
 
     if tagData.RaceMetaTags then
       payload[objName].RaceMetaTags = payloadTagTranslator(tagData.RaceMetaTags)
-    end
-
-    if tagData.DeityClassAlignTags then
-      payload[objName].DeityClassAlignTags = payloadTagTranslator(tagData.DeityClassAlignTags)
     end
 
     return payload
