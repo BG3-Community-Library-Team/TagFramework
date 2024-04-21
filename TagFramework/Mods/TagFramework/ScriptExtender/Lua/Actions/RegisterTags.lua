@@ -1,7 +1,6 @@
 local function AddToTagGroupsSubTable(fieldString, tagNameId, tagData)
   if tagData[fieldString] then
     for _, tag in pairs(tagData[fieldString]) do
-      _D(Globals.TagGroups[tagNameId])
       CLUtils.AddToTable(Globals.TagGroups[tagNameId][fieldString], tag)
     end
   end
@@ -13,6 +12,7 @@ function Actions.RegisterTags(tagNameId, tagData)
       Type = tagData.Type,
       Tag = tagData.Tag,
       ReallyTag = tagData.ReallyTag,
+      BloodMerchantElixirId = tagData.BloodMerchantElixirId,
       DeityCleric = tagData.DeityCleric,
       DeityPaladin = tagData.DeityPaladin,
       DeityAlignment = tagData.DeityAlignment,
