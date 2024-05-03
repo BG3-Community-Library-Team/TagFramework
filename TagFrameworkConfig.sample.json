@@ -21,6 +21,11 @@
       "Type": "Background",
       "Tag": "Charlatan",
       "TagsToExclude": ["Rare", "Planar"]
+    },
+    {
+      "Type": "Class",
+      "Tag": "Paladin",
+      "BloodMerchantElixirId": ""
     }
   ]
 }

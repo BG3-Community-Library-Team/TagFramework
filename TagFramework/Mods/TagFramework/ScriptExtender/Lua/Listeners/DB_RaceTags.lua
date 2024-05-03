@@ -8,6 +8,8 @@ Ext.Osiris.RegisterListener("DB_RaceTags", 2, "before", function (raceTag, reall
         if tagData.BloodMerchantElixirId then
           Osi.DB_GLO_BloodElixirs_RacialElixirTemplates(tagData.ReallyTag, tagData.BloodMerchantElixirId, _)
         end
+      elseif tagData.tag and tagData.BLoodMerchantElixirId then
+        Osi.DB_GLO_BloodElixirs_RacialElixirTemplates(tagData.ReallyTag, tagData.BloodMerchantElixirId, _)
       end
     end
   end
