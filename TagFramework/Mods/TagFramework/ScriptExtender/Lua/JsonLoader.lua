@@ -45,6 +45,7 @@ local function payloadDataInsert(tagData, payload, modGUID, count)
       DeityAlignment = translateSingleTag(tagData.DeityAlignment),
       TagsToExclude = {},
       RaceMetaTags = {},
+      BG3SX_Support = tagData.BG3SX_Support
     }
     if tagData.TagsToExclude then
       payload[objName].TagsToExclude = payloadTagTranslator(tagData.TagsToExclude)

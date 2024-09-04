@@ -17,7 +17,8 @@ function Actions.RegisterTags(tagNameId, tagData)
       DeityPaladin = tagData.DeityPaladin,
       DeityAlignment = tagData.DeityAlignment,
       TagsToExclude = {},
-      RaceMetaTags = {}
+      RaceMetaTags = {},
+      BG3SX_Support = tagData.BG3SX_Support
     }
   end
 
@@ -25,4 +26,5 @@ function Actions.RegisterTags(tagNameId, tagData)
 
   AddToTagGroupsSubTable("TagsToExclude", tagNameId, tagData)
   AddToTagGroupsSubTable("RaceMetaTags", tagNameId, tagData)
+
 end

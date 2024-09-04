@@ -13,6 +13,10 @@ Ext.Osiris.RegisterListener("DB_RaceTags", 2, "before", function (raceTag, reall
       elseif tagData.tag and tagData.BLoodMerchantElixirId then
         Osi.DB_GLO_BloodElixirs_RacialElixirTemplates(tagData.ReallyTag, tagData.BloodMerchantElixirId, _)
       end
+
+      if tagData.BG3SX_Support and Mods.BG3SX then
+        Actions.AddToBG3SXList(tagData.Tag, tagData.ReallyTag, tagData.BG3SX_Support)
+      end
     end
   end
 end)

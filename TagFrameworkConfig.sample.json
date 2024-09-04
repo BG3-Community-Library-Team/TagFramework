@@ -8,7 +8,13 @@
       "ReallyTag": "REALLY_Ghouls_Dunmer_6a018dee-2f04-4bda-93c4-958422c3ed0a",
       "TagsToExclude": ["Baldurian"],
       "RaceMetaTags": ["Rare"],
-      "BloodMerchantElixirId": ""
+      "BloodMerchantElixirId": "",
+      "BG3SX_Support": {
+        "Allowed": false,
+        "Reason": "The MPAA are watching me type",
+        "IncludeReally": true,
+        "RaceModGuid": "bfc31d95-8fd5-4bdc-a92b-ec3bfce13f86"
+      }
     },
     {
       "Type": "Deity",
