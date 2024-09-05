@@ -15,7 +15,9 @@ Ext.Osiris.RegisterListener("DB_RaceTags", 2, "before", function (raceTag, reall
       end
 
       if tagData.BG3SX_Support and Mods.BG3SX then
-        Actions.AddToBG3SXList(tagData.Tag, tagData.ReallyTag, tagData.BG3SX_Support)
+        local tagPayload = { Name = tagData.TagName, ID = tagData.TagId }
+        local reallyTagPayload = { Name = tagData.ReallyTagName, ID = tagData.ReallyTagId }
+        Actions.AddToBG3SXList(tagPayload, reallyTagPayload, tagData.BG3SX_Support)
       end
     end
   end

@@ -8,10 +8,15 @@ end
 
 function Actions.RegisterTags(tagNameId, tagData)
   if not Globals.TagGroups[tagNameId] then
+    -- TODO: Refactor to make things objects instead of seperate properties for Name and ID. Will be cleaner.
     Globals.TagGroups[tagNameId] = {
       Type = tagData.Type,
       Tag = tagData.Tag,
+      TagName = tagData.TagName,
+      TagId = tagData.TagId,
       ReallyTag = tagData.ReallyTag,
+      ReallyTagName = tagData.ReallyTagName,
+      ReallyTagId = tagData.ReallyTagId,
       BloodMerchantElixirId = tagData.BloodMerchantElixirId,
       DeityCleric = tagData.DeityCleric,
       DeityPaladin = tagData.DeityPaladin,

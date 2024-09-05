@@ -12,6 +12,18 @@ local function translateSingleTag(tag)
   return res
 end
 
+local function separateTagNameId(tag)
+  local tagToParse = tag or nil
+
+  if tag and not CLUtils.IsGuid(tag:sub(-36)) then
+    tagToParse = Globals.TagDict[tag]
+  end
+
+  local fleshedTag = Ext.StaticData.Get(tagToParse:sub(-36), "Tag")
+
+  return fleshedTag.Name, fleshedTag.ResourceUUID
+end
+
 local function payloadTagTranslator(fromArr)
   if fromArr then
     local res = {}
@@ -35,11 +47,16 @@ local function payloadDataInsert(tagData, payload, modGUID, count)
   if payload[objName] then
     payloadDataInsert(tagData, payload, modGUID, count + 1)
   else
+    -- TODO: Refactor to make better use of separate tag name
     payload[objName] = {
       modGuids = tagData.modGuids or { modGUID },
       Type = tagData.Type,
       Tag = objName,
+      TagName = separateTagNameId(tagData.Tag)[1],
+      TagId = separateTagNameId(tagData.Tag)[2],
       ReallyTag = translateSingleTag(tagData.ReallyTag),
+      ReallyTagName = separateTagNameId(tagData.ReallyTag)[1],
+      ReallyTagId = separateTagNameId(tagData.ReallyTag)[2],
       DeityCleric = translateSingleTag(tagData.DeityCleric),
       DeityPaladin = translateSingleTag(tagData.DeityPaladin),
       DeityAlignment = translateSingleTag(tagData.DeityAlignment),
