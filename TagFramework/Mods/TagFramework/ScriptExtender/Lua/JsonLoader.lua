@@ -13,15 +13,18 @@ local function translateSingleTag(tag)
 end
 
 local function separateTagNameId(tag)
-  local tagToParse = tag or nil
+  if tag then
+    if not CLUtils.IsGuid(tag:sub(-36)) then
+      tag = Globals.TagDict[tag]
+    end
 
-  if tag and not CLUtils.IsGuid(tag:sub(-36)) then
-    tagToParse = Globals.TagDict[tag]
+    fleshedTag = CLUtils.CacheOrRetrieve(tag, "Tag")
   end
 
-  local fleshedTag = Ext.StaticData.Get(tagToParse:sub(-36), "Tag")
-
-  return fleshedTag.Name, fleshedTag.ResourceUUID
+  return {
+    Name = fleshedTag.Name,
+    ID = fleshedTag.ResourceUUID
+  }
 end
 
 local function payloadTagTranslator(fromArr)
@@ -37,6 +40,22 @@ local function payloadTagTranslator(fromArr)
   end
 end
 
+local function populateTagNamesAndIds(pl_object, tagData)
+  if tagData.Tag then
+    local tagNameAndId = separateTagNameId(tagData.Tag)
+    pl_object.TagName = tagNameAndId[1]
+    pl_object.TagId = tagNameAndId[2]
+  end
+  if tagData.ReallyTag then
+    local reallyTagNameAndId = separateTagNameId(tagData.ReallyTag)
+    pl_object.ReallyTag = translateSingleTag(tagData.ReallyTag)
+    pl_object.ReallyTagName = reallyTagNameAndId[1]
+    pl_object.ReallyTagId = reallyTagNameAndId[2]
+  end
+
+  return pl_object
+end
+
 local function payloadDataInsert(tagData, payload, modGUID, count)
   local objName = translateSingleTag(tagData.Tag)
 
@@ -47,16 +66,13 @@ local function payloadDataInsert(tagData, payload, modGUID, count)
   if payload[objName] then
     payloadDataInsert(tagData, payload, modGUID, count + 1)
   else
+    local tagNameAndId = separateTagNameId(tagData.Tag)
+    local reallyTagNameAndId = separateTagNameId(tagData.ReallyTag)
     -- TODO: Refactor to make better use of separate tag name
     payload[objName] = {
       modGuids = tagData.modGuids or { modGUID },
       Type = tagData.Type,
       Tag = objName,
-      TagName = separateTagNameId(tagData.Tag)[1],
-      TagId = separateTagNameId(tagData.Tag)[2],
-      ReallyTag = translateSingleTag(tagData.ReallyTag),
-      ReallyTagName = separateTagNameId(tagData.ReallyTag)[1],
-      ReallyTagId = separateTagNameId(tagData.ReallyTag)[2],
       DeityCleric = translateSingleTag(tagData.DeityCleric),
       DeityPaladin = translateSingleTag(tagData.DeityPaladin),
       DeityAlignment = translateSingleTag(tagData.DeityAlignment),
@@ -64,6 +80,8 @@ local function payloadDataInsert(tagData, payload, modGUID, count)
       RaceMetaTags = {},
       BG3SX_Support = tagData.BG3SX_Support
     }
+
+    populateTagNamesAndIds(payload[objName], tagData)
     if tagData.TagsToExclude then
       payload[objName].TagsToExclude = payloadTagTranslator(tagData.TagsToExclude)
     end
